@@ -3,8 +3,8 @@ import threading, time, sys, os
 class Parser:
     def __init__(self, file, output) -> None:
         self.Settings = {
-            "Silent_Mode": False,
-            "Auto_Clear": False,
+            "Silent_Mode": True,
+            "Auto_Clear": True,
         }
         self.FailedPoint = False
         self.output = output
@@ -87,8 +87,22 @@ class Parser:
             script = script.replace(";", "")
             script = script.replace(" else", "else")
             script = script.replace("node", "class")
+            script = script.replace("else if", "elif")
 
             self.content = script
             if self.Settings["Silent_Mode"] == False:
                 print("[🍺] Poof is done")
             return True
+
+if __name__ == "__main__":
+    args = sys.argv
+
+    if len(args) != 2:
+        PRS = Parser(args[1], args[2])
+
+        if PRS.Compile() == True:
+            PRS.Write_Output()
+            PRS.Execute()
+    else:
+        print("[❌] Please provide a file and an output file")
+        sys.exit()
