@@ -13,7 +13,10 @@ class Parser:
                 os.system("cls")
             else:
                 os.system("clear")
-        with open(file, "r") as f: self.content = f.read()
+        if file.endswith(".pf"):
+            with open(file, "r") as f: self.content = f.read()
+        else:
+            sys.exit("[❌] Invalid file extension type (only .pf)")
 
     def run_sanitizer(self):
         script = self.content
