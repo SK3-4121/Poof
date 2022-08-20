@@ -2,6 +2,9 @@
 
 # Custom project i made thats pirvate
 
+# Version 1.0.2
+Fixed the file input type
+
 # Version 1.0.1
     python poof.py input.pf output/file.py
 
