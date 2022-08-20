@@ -1,3 +1,4 @@
+# Version 1.0.2
 import threading, time, sys, os
 
 class Parser:
