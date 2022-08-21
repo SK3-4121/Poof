@@ -6,6 +6,7 @@ _Custom syntax highlighting_
 
 # Version 1.0.4
 Added two different types of commands & settings.json (found in C:\poof)
+
     poof index.pf
     or
     poof index.pf output.py
