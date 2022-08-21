@@ -1,18 +1,30 @@
-import threading, time, sys, os
+import threading, time, json, sys, os
 
 class Parser:
-    def __init__(self, file, output) -> None:
+    def __init__(self, file) -> None:
         self.Settings = {
             "Silent_Mode": True,
             "Auto_Clear": False,
         }
+
+        self.Settings_File = f"C:\poof\settings.json"
+        if os.path.exists(self.Settings_File):
+            with open(self.Settings_File, "r") as f:
+                config = json.load(f)
+                self.Settings["Silent_Mode"] = config["Silent_Mode"]
+                self.Settings["Auto_Clear"] = config["Auto_Clear"]
+        else:
+            with open(self.Settings_File, "w") as f:
+                json.dump(self.Settings, f)
+
         self.FailedPoint = False
-        self.output = output
+
         if self.Settings["Auto_Clear"] == True:
             if os.name == 'nt':
                 os.system("cls")
             else:
                 os.system("clear")
+
         if file.endswith(".pf"):
             with open(file, "r") as f: self.content = f.read()
         else:
@@ -55,9 +67,9 @@ class Parser:
                 script = script.replace(line, line[:-99999999])
         self.content = script
 
-    def Write_Output(self):
+    def Write_Output(self, output):
         if self.FailedPoint == True:
-            file = self.output
+            file = output
             with open(file, "w") as f: f.write(self.content)
             if self.Settings["Silent_Mode"] == False:
                 print("[🎉] Script is written to {}".format(file))
@@ -103,11 +115,16 @@ if __name__ == "__main__":
     args = sys.argv
 
     if len(args) != 2:
-        PRS = Parser(args[1], args[2])
+        PRS = Parser(args[1])
 
         if PRS.Compile() == True:
-            PRS.Write_Output()
+            PRS.Write_Output(args[2])
+            PRS.Execute()
+    elif len(args) != 1:
+        PRS = Parser(args[1])
+
+        if PRS.Compile() == True:
             PRS.Execute()
     else:
-        print("[❌] Please provide a file and an output file")
+        print("[❌] Please provide a poof file and an output file")
         sys.exit()
