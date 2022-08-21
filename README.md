@@ -1,6 +1,5 @@
 # Poof
-
-# Custom project i made thats pirvate
+_Custom syntax highlighting is in http_
 
 # Version 1.0.3
 Fixed the try, except, finally crash issue
