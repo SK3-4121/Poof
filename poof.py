@@ -1,11 +1,10 @@
-# Version 1.0.2
 import threading, time, sys, os
 
 class Parser:
     def __init__(self, file, output) -> None:
         self.Settings = {
             "Silent_Mode": True,
-            "Auto_Clear": True,
+            "Auto_Clear": False,
         }
         self.FailedPoint = False
         self.output = output
@@ -90,6 +89,8 @@ class Parser:
             script = script.replace("}", "")
             script = script.replace(";", "")
             script = script.replace(" else", "else")
+            script = script.replace(" except", "except")
+            script = script.replace(" finally", "finally")
             script = script.replace("node", "class")
             script = script.replace("else if", "elif")
 
