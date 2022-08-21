@@ -2,6 +2,9 @@
 
 # Custom project i made thats pirvate
 
+# Version 1.0.3
+Fixed the try, except, finally crash issue
+
 # Version 1.0.2
 Fixed the file input type
 
