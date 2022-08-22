@@ -32,6 +32,14 @@ class Parser:
 
     def run_sanitizer(self):
         script = self.content
+
+        def get_everything_before(string, start):
+            return string[:string.find(start)]
+
+        for line in script.split("\n"):
+            if line.__contains__("#"):
+                script = script.replace(line, get_everything_before(line, "#"))
+
         CheckPoints = []
         CPF = False
         Counter = 0
@@ -39,7 +47,7 @@ class Parser:
         for line in script.split("\n"):
             Counter += 1
             if not line == "":
-                if not line.endswith(";") and not line.endswith("{") and not line.endswith("}"):
+                if not line.endswith(";") and not line.endswith("{") and not line.endswith("}") and not line.endswith(" "):
                     CheckPoints.append(f"{Counter} | {line}")
                     CPF = True
 
@@ -58,15 +66,6 @@ class Parser:
 
             threading.Thread(target=read).start()
 
-    def Remove_Comments(self):
-        script = self.content
-        for line in script.split("\n"):
-            if line.startswith("#"):
-                if line.endswith(")"):
-                    script = script.replace(line, "")
-                script = script.replace(line, line[:-99999999])
-        self.content = script
-    
     def Switches(self, Code):
         def get_between(string, start, end):
             return string[string.find(start)+len(start):string.rfind(end)]
@@ -80,7 +79,6 @@ class Parser:
                 if Code.split("\n")[Counter].__contains__("case"):
                     Code = Code.replace("case", "if "+get_args+" == ")
         return Code
-
 
     def Write_Output(self, output):
         if self.FailedPoint == True:
@@ -98,13 +96,10 @@ class Parser:
 
     def Compile(self):
         script = self.content
-        self.Remove_Comments()
         if self.run_sanitizer() == True:
             for line in script.split("\n"):
                 if line.endswith(" {"):
                     script = script.replace(" {", ":")
-                if line.startswith("#"):
-                    script = script.replace(line, "")
                 if line.startswith("}"):
                     script = script.replace(line, "")
 
