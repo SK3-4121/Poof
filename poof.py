@@ -66,6 +66,21 @@ class Parser:
                     script = script.replace(line, "")
                 script = script.replace(line, line[:-99999999])
         self.content = script
+    
+    def Switches(self, Code):
+        def get_between(string, start, end):
+            return string[string.find(start)+len(start):string.rfind(end)]
+
+        Counter = 0
+        for line in Code.split("\n"):
+            Counter += 1
+            if line.__contains__("switch"):
+                get_args = get_between(line, "(", ")")
+                Code = Code.replace(line, "if ("+get_args+"):")
+                if Code.split("\n")[Counter].__contains__("case"):
+                    Code = Code.replace("case", "if "+get_args+" == ")
+        return Code
+
 
     def Write_Output(self, output):
         if self.FailedPoint == True:
@@ -105,6 +120,7 @@ class Parser:
             script = script.replace(" finally", "finally")
             script = script.replace("node", "class")
             script = script.replace("else if", "elif")
+            script = self.Switches(script)
 
             self.content = script
             if self.Settings["Silent_Mode"] == False:
