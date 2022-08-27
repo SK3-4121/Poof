@@ -47,7 +47,7 @@ class Parser:
         for line in script.split("\n"):
             Counter += 1
             if not line == "":
-                if not line.endswith(";") and not line.endswith("{") and not line.endswith("}") and not line.endswith(" "):
+                if not line.endswith(";") and not line.endswith("{") and not line.endswith("}") and not line.endswith(",") and not line.endswith(" "):
                     CheckPoints.append(f"{Counter} | {line}")
                     CPF = True
 
@@ -100,16 +100,18 @@ class Parser:
             for line in script.split("\n"):
                 if line.endswith(" {"):
                     script = script.replace(" {", ":")
+                if line.endswith("}!;"):
+                    script = script.replace("}!", "℗")
                 if line.startswith("}"):
-                    script = script.replace(line, "")
+                    if not line.endswith("}!"):
+                        script = script.replace("}", "")
 
             # rules
             script = script.replace("require", "import")
             script = script.replace("inp", "input")
             script = script.replace("func", "def")
-            script = script.replace("};", "")
-            script = script.replace("}", "")
             script = script.replace(";", "")
+            script = script.replace("℗", "}")
             script = script.replace(" else", "else")
             script = script.replace(" except", "except")
             script = script.replace(" finally", "finally")
