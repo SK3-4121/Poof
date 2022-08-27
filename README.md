@@ -12,7 +12,7 @@ _Custom syntax highlighting_
         print(tabel["Test"]);
     }
 
-    test();
+    test(); -> Testing sucks dude.
 
 
 # Version 1.0.6
