@@ -6,4 +6,5 @@ _Custom syntax highlighting_
 
 # Install
 _How to install_
-    install.hf
+    
+    Run https://raw.githubusercontent.com/SK3-4121/Poof/main/md/install.sh with GitBash
