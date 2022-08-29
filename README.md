@@ -8,3 +8,5 @@ _Custom syntax highlighting_
 _How to install_
     
     Run https://raw.githubusercontent.com/SK3-4121/Poof/main/md/install.sh with GitBash
+    
+    $Bash install.sh
