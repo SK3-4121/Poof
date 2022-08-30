@@ -12,3 +12,4 @@ _How to install_
     $Bash install.sh
     
 Example image: https://i.imgur.com/J9ywH1J.png
+2nd Example image (in the python folder): https://i.imgur.com/JYON8B4.png
