@@ -1,5 +1,7 @@
 import threading, time, json, sys, os
 
+# from requests import *;
+
 class Parser:
     def __init__(self, file) -> None:
         self.Settings = {
