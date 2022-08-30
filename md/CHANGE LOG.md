@@ -4,6 +4,16 @@ _Custom syntax highlighting_
     https://github.com/SK3-4121/Poof/raw/main/poof%20syntax%20highlight.7z
     cp -r poof ~/.vscode/extensions
 
+# Version 1.0.8
+    Fixed requirements not working by using a python as a extrnal pip and python env for exec()
+    New commands added to poof.exe; To fix it i added a new BootLoader.py which you can find in the root.
+    
+    Usage: Bootloader.py [--help] | [--update] | [package] | [output]
+    --help: Show this help
+    --update: Update poof to the latest version
+    --remove [r]: remove a spefiic package
+    --install [i]: install a spefiic package
+
 # Version 1.0.7
     func test() {
         tabel={
