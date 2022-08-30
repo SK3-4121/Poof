@@ -11,4 +11,4 @@ _How to install_
     
     $Bash install.sh
     
-    Example image: https://i.imgur.com/J9ywH1J.png
+Example image: https://i.imgur.com/J9ywH1J.png
