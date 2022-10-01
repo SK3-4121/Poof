@@ -28,7 +28,9 @@ class Parser:
                 os.system("clear")
 
         if file.endswith(".pf"):
-            with open(file, "r") as f: self.content = f.read()
+            self.file = os.path.abspath(file)
+            with open(file, "r") as f:
+                self.content = f.read()
         else:
             sys.exit("[❌] Invalid file extension type (only .pf)")
 
@@ -68,6 +70,18 @@ class Parser:
 
             threading.Thread(target=read).start()
 
+    def Sleep(self, Code):
+        def get_between(string, start, end):
+            return string[string.find(start)+len(start):string.rfind(end)]
+
+        Counter = 0
+        for line in Code.split("\n"):
+            Counter += 1
+            if line.__contains__("sleep"):
+                get_args = get_between(line, "(", ")")
+                Code = Code.replace(line, "time.sleep("+get_args+")")
+        return Code
+
     def Switches(self, Code):
         def get_between(string, start, end):
             return string[string.find(start)+len(start):string.rfind(end)]
@@ -81,6 +95,32 @@ class Parser:
                 if Code.split("\n")[Counter].__contains__("case"):
                     Code = Code.replace("case", "if "+get_args+" == ")
         return Code
+
+    def pkgs(self, Code):
+        def get_dir(self):
+            return os.path.dirname(self.file)
+
+        if os.path.exists(get_dir(self)+"/pkgs"):
+            with open(get_dir(self)+"/pkgs", "r") as f:
+                _pkgs = str(f.read() + "\n\n\n")
+                # write the pkgs to the top of the Code
+                Code = _pkgs + Code
+
+        return Code
+
+    def fix_f_strings(Obj):
+        def check_if_line_is_f_string(line):
+            return line.startswith("print(f") and line.endswith(")")
+
+        Counter = 0
+        FStringDict = []
+
+        for line in Obj.split("\n"):
+            Counter += 1
+            if check_if_line_is_f_string(line):
+                FStringDict.append(Counter)
+        
+        return FStringDict
 
     def Write_Output(self, output):
         if self.FailedPoint == True:
@@ -109,6 +149,7 @@ class Parser:
                         script = script.replace("}", "")
 
             # rules
+            script = self.pkgs(script)
             script = script.replace("require", "import")
             script = script.replace("inp", "input")
             script = script.replace("func", "def")
@@ -120,6 +161,7 @@ class Parser:
             script = script.replace("node", "class")
             script = script.replace("else if", "elif")
             script = self.Switches(script)
+            script = self.Sleep(script)
 
             self.content = script
             if self.Settings["Silent_Mode"] == False:
