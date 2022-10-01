@@ -4,6 +4,13 @@ _Custom syntax highlighting_
     https://github.com/SK3-4121/Poof/raw/main/poof%20syntax%20highlight.7z
     cp -r poof ~/.vscode/extensions
 
+# Version 1.0.9
+    Added packges example of how to use this:
+    CREATE A FILE NAMED "pkgs" IN THE DIRECTORY OF YOUR EXAMPLE.PF
+    THEN ADD "import time;" TO THE "pkgs" FILE
+    THEN ADD "print(time.time);" TO THE "EXAMLPE.PF"
+    THEN RUN "poof EXAMPLE.PF"
+
 # Version 1.0.8
     Fixed requirements not working by using a python as a extrnal pip and python env for exec()
     New commands added to poof.exe; To fix it i added a new BootLoader.py which you can find in the root.
